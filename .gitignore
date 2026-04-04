@@ -1,0 +1,6 @@
+node_modules/
+myportfolio/node_modules/
+dist/
+myportfolio/dist/
+.vscode/
+.DS_Store
