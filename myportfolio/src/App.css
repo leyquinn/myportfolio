@@ -618,10 +618,15 @@ span.btn-ongoing {
   margin: 0;
 }
 
+.timeline-info {
+  min-width: 0;
+}
+
 .timeline-info p {
   margin: 4px 0 0;
   color: var(--text-muted);
   font-size: inherit;
+  overflow-wrap: anywhere;
 }
 
 .date-tag {
@@ -631,6 +636,7 @@ span.btn-ongoing {
   font-size: 0.67rem;
   font-weight: 700;
   color: var(--text-muted);
+  white-space: nowrap;
 }
 
 .date-tag.current {
@@ -1441,6 +1447,17 @@ section, .project-item {
   .contact-highlight,
   .hero-card, .split-row, .timeline-row { grid-template-columns: 1fr; }
 
+  .timeline-item {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 10px;
+    row-gap: 0;
+  }
+
+  .timeline-item .date-tag {
+    grid-column: 3;
+    justify-self: end;
+  }
+
   .projects-full-grid,
   .projects-section .project-grid,
   .right-rail .project-grid {
@@ -1615,16 +1632,6 @@ section, .project-item {
   .projects-view .btn-ongoing {
     width: 100%;
     margin-top: 16px;
-  }
-
-  .timeline-item {
-    grid-template-columns: auto 1fr;
-    row-gap: 6px;
-  }
-
-  .timeline-item .date-tag {
-    grid-column: 2;
-    justify-self: start;
   }
 
   .social-icon-row a {
