@@ -1439,7 +1439,13 @@ section, .project-item {
 @media (max-width: 900px) {
   .reference-grid,
   .contact-highlight,
-  .hero-card, .split-row, .projects-full-grid, .project-grid, .timeline-row { grid-template-columns: 1fr; }
+  .hero-card, .split-row, .timeline-row { grid-template-columns: 1fr; }
+
+  .projects-full-grid,
+  .projects-section .project-grid,
+  .right-rail .project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .timeline-date { text-align: left; padding-top: 0; }
 
   .left-rail .learning-card,
@@ -1499,6 +1505,14 @@ section, .project-item {
   .contact-view .reference-footer {
     margin-top: 44px;
     padding-top: 24px;
+  }
+}
+
+@media (max-width: 700px) {
+  .projects-full-grid,
+  .projects-section .project-grid,
+  .right-rail .project-grid {
+    grid-template-columns: 1fr;
   }
 }
 
