@@ -13,7 +13,25 @@ const projects = [
   { title: "H's Barbershop", type: 'Web', summary: "A modern, full-stack web application for managing barbershop services with customer booking capabilities and an admin dashboard.", stack: ['React', 'Vite', 'CSS', 'Express.js', 'Node.js', 'MySQL'], status: 'Live Demo', link: 'https://hbarbershop.vercel.app/', preview: '/hbarbershop%20preview.png' },
   { title: 'Cat Adoption Project', type: 'Web', summary: 'A cat adoption web app designed to help users discover, connect with, and adopt cats more easily.', stack: ['React', 'Vite', 'CSS'], status: 'Live Demo', link: 'https://catadoption.vercel.app/', preview: '/cat%20adoption%20preview.png' },
   { title: 'DPWH Redesign Website', type: 'Web', summary: 'A website for the Department of Public Works and Highways focused on clearer navigation and accessible service information.', stack: ['HTML', 'CSS', 'JavaScript'], status: 'Live Demo', link: 'https://dpwh.vercel.app/', preview: '/dpwh%20website%20preview.png' },
-  { title: 'DPWH Redesign Figma ', type: 'Design', summary: 'A Figma prototype for the Department of Public Works and Highways focused on clear navigation and accessible services.', stack: ['Figma', 'UI Design', 'Prototyping'], status: 'Live Demo', link: 'https://www.figma.com/proto/2hmVfc5rXfAr3NHLNjaa1p/Midterm?node-id=22-140&p=f&t=iYPwaNpwK732V2mq-1&scaling=contain&content-scaling=responsive&page-id=0%3A1', preview: '/figma%20mockup%20preview.png' },
+  { title: 'DPWH Figma Mockup', type: 'Design', summary: 'A Figma prototype for the Department of Public Works and Highways focused on clear navigation and accessible services.', stack: ['Figma', 'UI Design', 'Prototyping'], status: 'Live Demo', link: 'https://www.figma.com/proto/2hmVfc5rXfAr3NHLNjaa1p/Midterm?node-id=22-140&p=f&t=iYPwaNpwK732V2mq-1&scaling=contain&content-scaling=responsive&page-id=0%3A1', preview: '/figma%20mockup%20preview.png' },
+]
+const relatedWorkImages = [
+  { src: '/CCNA%20Intro.png', alt: 'CCNA Introduction to Networks certificate' },
+  { src: '/IMG_8351.PNG', alt: 'Related work image 8351' },
+  { src: '/IMG_8352.PNG', alt: 'Related work image 8352' },
+  { src: '/IMG_8353.PNG', alt: 'Related work image 8353' },
+  { src: '/IMG_8354.PNG', alt: 'Related work image 8354' },
+  { src: '/IMG_8355.PNG', alt: 'Related work image 8355' },
+  { src: '/IMG_8356.PNG', alt: 'Related work image 8356' },
+  { src: '/IMG_8357.PNG', alt: 'Related work image 8357' },
+  { src: '/IMG_8358.PNG', alt: 'Related work image 8358' },
+  { src: '/IMG_8360.PNG', alt: 'Related work image 8360' },
+  { src: '/IMG_8361.PNG', alt: 'Related work image 8361' },
+  { src: '/IMG_8362.PNG', alt: 'Related work image 8362' },
+  { src: '/IMG_8363.PNG', alt: 'Related work image 8363' },
+  { src: '/IMG_8364.PNG', alt: 'Related work image 8364' },
+  { src: '/IMG_8368.PNG', alt: 'Related work image 8368' },
+  { src: '/IMG_8410.jpg', alt: 'Related work image 8410' },
 ]
 const timeline = [
   { title: 'Intern', period: 'IN PROGRESS', isCurrent: true },
@@ -32,10 +50,7 @@ const learningNow = [
   'Swift',
   'Flutter',
 ]
-const recommendation = {
-  quote: 'Been with her for a year and she is remarkable.',
-  author: 'Sir Stony',
-}
+const certification = 'CCNA: Introduction to Networks'
 const socialLinks = [
   { label: 'GitHub', url: 'https://github.com/leyquinn', icon: 'github' },
   { label: 'LinkedIn', url: 'https://www.linkedin.com/in/harley-love-cuba-b8670a248/', icon: 'linkedin' },
@@ -125,7 +140,27 @@ const ScrollReveal = () => {
   return null
 }
 
-const Home = ({ theme, toggleTheme }) => (
+const Home = ({ theme, toggleTheme }) => {
+  const [activeWorkIndex, setActiveWorkIndex] = useState(0)
+  const [isWorkModalOpen, setIsWorkModalOpen] = useState(false)
+  const totalWorkSlides = relatedWorkImages.length
+
+  const goToWorkSlide = (nextIndex) => {
+    const normalizedIndex = (nextIndex + totalWorkSlides) % totalWorkSlides
+    setActiveWorkIndex(normalizedIndex)
+  }
+
+  const activeWork = relatedWorkImages[activeWorkIndex]
+
+  const openWorkModal = () => {
+    setIsWorkModalOpen(true)
+  }
+
+  const closeWorkModal = () => {
+    setIsWorkModalOpen(false)
+  }
+
+  return (
   <div className="home-layout">
     <section id="home" className="hero-card reveal">
       <div className="hero-avatar">
@@ -219,11 +254,48 @@ const Home = ({ theme, toggleTheme }) => (
           <ul className="learning-list">
             {learningNow.map((item) => <li key={item} className="learning-item">{item}</li>)}
           </ul>
-          <p className="learning-recommendation-title">Recommendation</p>
+          <p className="learning-recommendation-title">Certification</p>
           <blockquote className="learning-recommendation">
-            "{recommendation.quote}"
-            <span>— {recommendation.author}</span>
+            {certification}
           </blockquote>
+        </section>
+
+        <section className="work-carousel-card reveal delay-3">
+          <div className="card-header"><h2>Related Work</h2></div>
+          <div className="work-carousel-frame">
+            <button
+              type="button"
+              className="work-carousel-nav work-carousel-nav-prev"
+              onClick={() => goToWorkSlide(activeWorkIndex - 1)}
+              aria-label="Previous related work image"
+            >
+              <span aria-hidden="true">&lt;</span>
+            </button>
+            <button type="button" className="work-carousel-image-button" onClick={openWorkModal} aria-label="Open related work image">
+              <img src={activeWork.src} alt={activeWork.alt} loading="lazy" />
+            </button>
+            <button
+              type="button"
+              className="work-carousel-nav work-carousel-nav-next"
+              onClick={() => goToWorkSlide(activeWorkIndex + 1)}
+              aria-label="Next related work image"
+            >
+              <span aria-hidden="true">&gt;</span>
+            </button>
+          </div>
+          <span className="work-carousel-counter">{activeWorkIndex + 1} / {totalWorkSlides}</span>
+          <div className="work-carousel-dots" role="tablist" aria-label="Select related work slide">
+            {relatedWorkImages.map((item, index) => (
+              <button
+                key={item.src}
+                type="button"
+                className={`work-dot ${index === activeWorkIndex ? 'active' : ''}`}
+                onClick={() => goToWorkSlide(index)}
+                aria-label={`Show related work image ${index + 1}`}
+                aria-pressed={index === activeWorkIndex}
+              />
+            ))}
+          </div>
         </section>
       </div>
 
@@ -272,41 +344,83 @@ const Home = ({ theme, toggleTheme }) => (
           </div>
         </section>
 
+        <section id="contact" className="contact-highlight reveal delay-3">
+          <div className="contact-highlight-copy">
+            <h2>Let's Work Together.</h2>
+            <p>I am currently taking an internship and actively applying for opportunities where I can grow as a developer and contribute to meaningful projects.</p>
+            <p className="contact-meta">Follow Me</p>
+            <div className="social-icon-row">
+              {socialLinks.map((link) => (
+                <a key={link.label} href={link.url} target="_blank" rel="noreferrer" aria-label={link.label}>
+                  <SocialIcon type={link.icon} />
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="contact-highlight-links">
+            <p className="contact-meta">Get In Touch</p>
+            <a className="contact-pill" href="mailto:hlncuba@addu.edu.ph">
+              <span className="contact-pill-head"><span className="contact-pill-icon"><SocialIcon type="email" /></span><strong>Email</strong></span>
+              <span>hlncuba@addu.edu.ph</span>
+            </a>
+            <a className="contact-pill" href="tel:09815235178">
+              <span className="contact-pill-head"><span className="contact-pill-icon"><SocialIcon type="phone" /></span><strong>Let's Talk</strong></span>
+              <span>09815235178</span>
+            </a>
+          </div>
+        </section>
+
       </div>
     </div>
-
-    <section id="contact" className="contact-highlight reveal delay-3">
-      <div className="contact-highlight-copy">
-        <h2>Let's Work Together.</h2>
-        <p>I am currently taking an internship and actively applying for opportunities where I can grow as a developer and contribute to meaningful projects.</p>
-        <p className="contact-meta">Follow Me</p>
-        <div className="social-icon-row">
-          {socialLinks.map((link) => (
-            <a key={link.label} href={link.url} target="_blank" rel="noreferrer" aria-label={link.label}>
-              <SocialIcon type={link.icon} />
-            </a>
-          ))}
-        </div>
-      </div>
-      <div className="contact-highlight-links">
-        <p className="contact-meta">Get In Touch</p>
-        <a className="contact-pill" href="mailto:hlncuba@addu.edu.ph">
-          <span className="contact-pill-head"><span className="contact-pill-icon"><SocialIcon type="email" /></span><strong>Email</strong></span>
-          <span>hlncuba@addu.edu.ph</span>
-        </a>
-        <a className="contact-pill" href="tel:09815235178">
-          <span className="contact-pill-head"><span className="contact-pill-icon"><SocialIcon type="phone" /></span><strong>Let's Talk</strong></span>
-          <span>09815235178</span>
-        </a>
-      </div>
-    </section>
 
     <section className="reference-footer reveal delay-3">
       <p>© 2026 Harley Cuba. All Rights Reserved.</p>
     </section>
 
+    {isWorkModalOpen ? (
+      <div className="work-modal" role="dialog" aria-modal="true" aria-label="Related work image preview" onClick={closeWorkModal}>
+        <button
+          type="button"
+          className="work-modal-close"
+          onClick={(event) => {
+            event.stopPropagation()
+            closeWorkModal()
+          }}
+          aria-label="Close image preview"
+        >
+          ×
+        </button>
+        <div className="work-modal-panel">
+          <button
+            type="button"
+            className="work-modal-nav work-modal-nav-prev"
+            onClick={(event) => {
+              event.stopPropagation()
+              goToWorkSlide(activeWorkIndex - 1)
+            }}
+            aria-label="Show previous related work image"
+          >
+            <span aria-hidden="true">&lt;</span>
+          </button>
+          <img src={activeWork.src} alt={activeWork.alt} onClick={(event) => event.stopPropagation()} />
+          <button
+            type="button"
+            className="work-modal-nav work-modal-nav-next"
+            onClick={(event) => {
+              event.stopPropagation()
+              goToWorkSlide(activeWorkIndex + 1)
+            }}
+            aria-label="Show next related work image"
+          >
+            <span aria-hidden="true">&gt;</span>
+          </button>
+        </div>
+      </div>
+    ) : null}
+
   </div>
-)
+  )
+}
 
 const Projects = () => (
   <div className="view-container reveal projects-view">
