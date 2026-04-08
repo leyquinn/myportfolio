@@ -182,7 +182,7 @@ const Home = ({ theme, toggleTheme }) => {
             <img className="cta-icon-img" src="/phone.png" alt="" aria-hidden="true" />
             Contact
           </NavLink>
-          <a className="btn-outline cta-with-icon" href="mailto:example@gmail.com">
+          <a className="btn-outline cta-with-icon" href="mailto:hlncuba@addu.edu.ph">
             <img className="cta-icon-img" src="/email.png" alt="" aria-hidden="true" />
             Send Email
           </a>
